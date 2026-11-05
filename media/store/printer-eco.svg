@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" role="img" aria-labelledby="title desc">
+  <title id="title">Impresora Epson EcoTank</title>
+  <desc id="desc">Ilustración vectorial de una impresora multifunción de tinta continua.</desc>
+  <defs>
+    <linearGradient id="bodyGrad" x1="0" x2="1">
+      <stop offset="0" stop-color="#3f4045"/>
+      <stop offset="0.48" stop-color="#2a2d31"/>
+      <stop offset="1" stop-color="#45474c"/>
+    </linearGradient>
+    <linearGradient id="paperGrad" x1="0" x2="1">
+      <stop offset="0" stop-color="#f9fafb"/>
+      <stop offset="1" stop-color="#dfe3e7"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#000" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#shadow)">
+    <rect width="900" height="620" fill="none"/>
+    <g transform="translate(70,70)">
+      <rect x="60" y="130" width="620" height="270" rx="18" fill="url(#bodyGrad)"/>
+      <rect x="120" y="80" width="500" height="80" rx="12" fill="#31353b"/>
+      <rect x="95" y="150" width="550" height="30" rx="8" fill="#1a1d20" opacity="0.6"/>
+      <rect x="115" y="168" width="40" height="20" rx="4" fill="#111"/>
+      <rect x="635" y="170" width="35" height="20" rx="4" fill="#111"/>
+
+      <g>
+        <rect x="120" y="220" width="500" height="18" rx="7" fill="#1e2125"/>
+        <rect x="160" y="235" width="420" height="90" rx="16" fill="#2d3035"/>
+        <rect x="150" y="250" width="440" height="60" rx="12" fill="#444a50" opacity="0.9"/>
+      </g>
+
+      <g>
+        <rect x="110" y="305" width="530" height="24" rx="8" fill="#1d2125"/>
+        <path d="M110 334h530l-22 78H132z" fill="#262b2f"/>
+        <path d="M130 340h490l-18 52H148z" fill="#1a1d20"/>
+      </g>
+
+      <g transform="translate(180,200)">
+        <path d="M0 30h370a24 24 0 0 1 24 24v92a44 44 0 0 1-44 44H44a44 44 0 0 1-44-44V54a24 24 0 0 1 24-24z" fill="url(#paperGrad)" opacity="0.92"/>
+        <path d="M40 60h294v80H40z" fill="#f3f6f9" opacity="0.7"/>
+      </g>
+
+      <g>
+        <rect x="180" y="352" width="440" height="14" rx="7" fill="#1b1d20"/>
+        <rect x="155" y="366" width="420" height="10" rx="5" fill="#16181b"/>
+      </g>
+
+      <g>
+        <rect x="550" y="162" width="32" height="130" rx="8" fill="#2f3439"/>
+        <rect x="565" y="142" width="80" height="26" rx="10" fill="#1d2023"/>
+        <path d="M640 170h70l15 40-15 40h-70l-15-40z" fill="#2a2d31"/>
+      </g>
+
+      <g>
+        <rect x="512" y="385" width="46" height="18" rx="8" fill="#2f3438"/>
+        <rect x="565" y="394" width="72" height="12" rx="6" fill="#2a2d31"/>
+      </g>
+
+      <g>
+        <rect x="198" y="170" width="90" height="18" rx="5" fill="#1d2430"/>
+        <rect x="210" y="190" width="68" height="18" rx="5" fill="#1d2430"/>
+      </g>
+
+      <g>
+        <rect x="280" y="52" width="76" height="22" rx="6" fill="#1b1d20"/>
+        <rect x="292" y="70" width="50" height="12" rx="6" fill="#4eb7ff" opacity="0.9"/>
+      </g>
+    </g>
+  </g>
+</svg>
