@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e22e40">
+  <meta name="description" content="Tienda de Neyra Servicios. Consultá productos y armá tu pedido por WhatsApp.">
+  <title>Tienda | Neyra Servicios</title>
+  <link rel="icon" href="https://neyraservicios.com.ar/favicon-32x32.png" type="image/png">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/tienda/store.css">
+</head>
+<body class="store-page">
+  <a class="skip-link" href="#catalog">Saltar al catálogo</a>
+  <header class="store-header">
+    <a class="store-brand" href="/index.html" aria-label="Neyra Servicios, inicio">
+      <img src="/media/logo-web.png" alt="Neyra Servicios">
+    </a>
+    <nav class="store-nav" aria-label="Navegación de tienda">
+      <a href="/index.html">Inicio</a>
+      <details class="store-category-menu">
+        <summary>Categorías</summary>
+        <div class="category-menu-items" id="categoryMenuItems"></div>
+      </details>
+      <a href="#catalog" data-store-sort="popular">Más vendidos</a>
+      <a href="#catalog" data-store-sort="newest">Novedades</a>
+      <a href="#offers">Ofertas</a>
+      <a href="/contacto.html">Ayuda</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Cambiar a modo oscuro" aria-pressed="false">
+      <span aria-hidden="true">🌙</span>
+    </button>
+    <button class="cart-trigger" id="cartOpen" type="button" aria-label="Abrir carrito, 0 productos" aria-controls="cartDrawer" aria-expanded="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h2l2.4 12.2a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 1.9-1.4L22 9H7"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>
+      <span>Carrito</span><span class="cart-count" id="cartCount">0</span>
+    </button>
+  </header>
+
+  <main id="catalog" class="store-main">
+    <div class="store-eyebrow"><span></span> TIENDA NEYRA</div>
+    <div class="store-title-row">
+      <div>
+        <h1>Productos para tu día a día</h1>
+        <p>Elegí lo que necesitás y enviá tu pedido por WhatsApp.</p>
+      </div>
+    </div>
+
+    <div class="sample-notice" id="sampleNotice" hidden>
+      Los productos y precios visibles son de ejemplo. Confirmá disponibilidad y precio antes de comprar.
+    </div>
+
+    <div class="catalog-tools">
+      <form class="search-field" id="searchForm" role="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
+        <input id="productSearch" type="search" name="q" placeholder="Buscar productos" autocomplete="off">
+        <button class="search-submit" type="submit">Buscar</button>
+      </form>
+      <label class="category-field" for="categoryFilter">
+        <span>Categoría</span>
+        <select id="categoryFilter"><option value="">Todas</option></select>
+      </label>
+      <label class="category-field" for="subcategoryFilter">
+        <span>Subcategoría</span>
+        <select id="subcategoryFilter"><option value="">Todas</option></select>
+      </label>
+      <label class="category-field" for="brandFilter">
+        <span>Marca</span>
+        <select id="brandFilter"><option value="">Todas</option></select>
+      </label>
+      <label class="category-field" for="priceFilter">
+        <span>Precio</span>
+        <select id="priceFilter">
+          <option value="">Todos</option>
+          <option value="0-15000">Hasta $15.000</option>
+          <option value="15000-50000">$15.000 - $50.000</option>
+          <option value="50000-100000">$50.000 - $100.000</option>
+          <option value="100000-999999999">Más de $100.000</option>
+        </select>
+      </label>
+      <label class="category-field" for="sortProducts">
+        <span>Ordenar</span>
+        <select id="sortProducts">
+          <option value="featured">Relevancia</option>
+          <option value="popular">Más vendidos</option>
+          <option value="price-asc">Menor precio</option>
+          <option value="price-desc">Mayor precio</option>
+          <option value="newest">Novedades</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="category-highlights" id="categoryHighlights" aria-live="polite"></div>
+
+    <section class="offers-section" id="offers" aria-labelledby="offersTitle" hidden>
+      <div class="offers-heading"><div><p>OPORTUNIDADES ACTIVAS</p><h2 id="offersTitle">Ofertas</h2></div></div>
+      <div class="offer-grid" id="offerGrid"></div>
+    </section>
+
+    <div class="catalog-heading"><h2>Catálogo</h2><span id="catalogResultCount"></span></div>
+    <p class="store-status" id="storeStatus" role="status" aria-live="polite">Cargando catálogo…</p>
+    <section class="product-grid" id="productGrid" aria-label="Productos disponibles"></section>
+  </main>
+
+  <button class="cart-backdrop" id="cartBackdrop" type="button" aria-label="Cerrar carrito" hidden></button>
+  <aside class="cart-drawer" id="cartDrawer" aria-labelledby="cartTitle" aria-hidden="true" inert>
+    <div class="cart-heading">
+      <div><p class="cart-kicker">TU PEDIDO</p><h2 id="cartTitle">Carrito</h2></div>
+      <button class="icon-button" id="cartClose" type="button" aria-label="Cerrar carrito">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-empty" id="cartEmpty">Todavía no agregaste productos.</div>
+    <div class="cart-summary">
+      <div class="cart-row"><span>Subtotal</span><strong id="cartSubtotal">$ 0</strong></div>
+      <div class="cart-row"><span>Envío estimado</span><strong id="cartShipping">$ 0</strong></div>
+      <div class="cart-total"><span>Total estimado</span><strong id="cartTotal">$ 0</strong></div>
+      <p>El precio final y la disponibilidad se confirman por WhatsApp.</p>
+      <button class="clear-cart-button" id="clearCartButton" type="button">Vaciar carrito</button>
+      <a class="checkout-button is-disabled" id="checkoutButton" href="#" target="_blank" rel="noopener noreferrer" aria-disabled="true">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.9 11.9 0 0 0 12.1 0C5.5 0 .2 5.3.2 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.3-1.7a11.9 11.9 0 0 0 5.7 1.4h.1c6.5 0 11.9-5.3 11.9-11.9a11.8 11.8 0 0 0-3.5-8.3ZM12 21.7a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.7-.2-.4a9.8 9.8 0 0 1-1.5-5.2 9.8 9.8 0 0 1 9.8-9.9 9.8 9.8 0 0 1 7 2.9 9.8 9.8 0 0 1 2.9 7 9.8 9.8 0 0 1-9.9 9.9Z"/><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.2-.6-.4Z"/></svg>
+        <span>Continuar por WhatsApp</span>
+      </a>
+    </div>
+  </aside>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="/media/logo-web.png" alt="Neyra Servicios">
+          <p>Más de 40 años acercando soluciones tecnológicas a empresas y personas.</p>
+        </div>
+        <div>
+          <p class="fcol-title">Contacto</p>
+          <ul class="fcontact">
+            <li class="fcontact-item">
+              <span class="fi" aria-hidden="true">📧</span>
+              <a href="mailto:ventas@neyraservicios.com.ar">ventas@neyraservicios.com.ar</a>
+            </li>
+            <li class="fcontact-item">
+              <span class="fi" aria-hidden="true">📱</span>
+              <a href="https://wa.me/5493512600101" target="_blank" rel="noopener noreferrer"
+                 aria-label="Llamar o escribir por WhatsApp (abre en nueva ventana)"
+                 data-wa="footer">(0351) 15 260-0101</a>
+            </li>
+            <li class="fcontact-item">
+              <span class="fi" aria-hidden="true">📍</span>
+              <span>La Rioja 361, Córdoba, Argentina</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <p class="fcol-title">Navegación</p>
+          <nav aria-label="Pie de página">
+            <ul class="fnav" role="list">
+              <li><a href="/index.html">Inicio</a></li>
+              <li><a href="/nosotros.html">Nosotros</a></li>
+              <li><a href="/marcas.html">Servicios</a></li>
+              <li><a href="/tienda/">Tienda</a></li>
+              <li><a href="/ubicacion.html">Cómo llegar</a></li>
+              <li><a href="/contacto.html">Contacto</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div class="footer__div"></div>
+      <div class="footer__bot">
+        <span>© 2026 Neyra Servicios. Todos los derechos reservados.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/tienda/store.js" defer></script>
+</body>
+</html>

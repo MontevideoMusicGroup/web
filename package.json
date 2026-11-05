@@ -1,0 +1,22 @@
+{
+  "name": "neyra-servicios",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.15.0" },
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "npm run build && wrangler dev --config .devin/wrangler.jsonc",
+    "deploy": "npm run build && wrangler deploy --config .devin/wrangler.jsonc",
+    "check": "npm run build && wrangler deploy --dry-run --config .devin/wrangler.jsonc",
+    "test": "node --test",
+    "db:local": "wrangler d1 migrations apply neyra-db --local --config .devin/wrangler.jsonc",
+    "db:remote": "wrangler d1 migrations apply neyra-db --remote --config .devin/wrangler.jsonc",
+    "data:export": "node migrate-data.mjs",
+    "data:local": "wrangler d1 execute neyra-db --local --file .devin/local-data.sql --config .devin/wrangler.jsonc",
+    "data:remote": "wrangler d1 execute neyra-db --remote --file .devin/local-data.sql --config .devin/wrangler.jsonc"
+  },
+  "devDependencies": {
+    "wrangler": "4.155.0"
+  }
+}
