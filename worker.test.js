@@ -5,7 +5,7 @@ import { readFileSync } from 'node:fs';
 const workerPromise = import('./worker.js').then(m => m.default);
 function environment() {
   const sqlite = new DatabaseSync(':memory:');
-  sqlite.exec(readFileSync(new URL('.devin/migrations/0001_initial.sql', import.meta.url), 'utf8'));
+  sqlite.exec(readFileSync(new URL('cloudflare/migrations/0001_initial.sql', import.meta.url), 'utf8'));
   function prepare(sql) {
     let args = [];
     return {

@@ -41,5 +41,5 @@ for (const key of ['site-content', 'order-settings']) {
   const value = await read(key);
   if (!Array.isArray(value)) statements.push(`INSERT OR IGNORE INTO settings(key,value) VALUES(${quote(key)},${quote(JSON.stringify(value))});`);
 }
-await writeFile(new URL('.devin/local-data.sql', root), statements.join('\n') + '\n');
+await writeFile(new URL('cloudflare/local-data.sql', root), statements.join('\n') + '\n');
 console.log('Exportación local creada. No incluye credenciales ni sesiones; no sobrescribe registros existentes.');
