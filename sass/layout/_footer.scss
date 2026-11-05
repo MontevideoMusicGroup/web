@@ -1,0 +1,57 @@
+
+footer {
+  background: $lightgrey-color;
+  padding: 1em 0;
+  margin-top: 2em;
+  font-size: .8em;
+  font-weight: 400;
+
+  @media only screen and (max-width: 768px) {
+    font-size: .6em;
+    font-weight: 300;
+  }
+  
+  .info {
+    ul {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+      li {
+        a {
+          color: $black-color;
+        }
+      }
+      @media only screen and (max-width: 768px) {
+        flex-direction: column;
+      }
+    }
+  }
+
+  .divisor {
+    height: 1px;
+    background-color: $grey-color;
+    margin: 1em auto;
+  }
+  
+  .copyright {
+    ul {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      li {
+        margin: .5em auto;
+        a {
+          color: $black-color;
+          font-weight: 500;
+        }
+      }
+
+      @media only screen and (max-width: 768px) {
+        flex-direction: column;
+      }
+    }
+  }
+}

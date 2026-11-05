@@ -1,0 +1,38 @@
+@import 'variables';
+@import 'reset';
+@import 'extend';
+@import 'mixins';
+@import './layout/header';
+@import './layout/galery';
+@import './layout/main-page';
+@import './layout/location';
+@import './layout/contact';
+@import './layout/brands';
+@import './layout/footer';
+
+/* contenedor para aplicar un margin lateral en todos los contenidos */
+.contenedor {
+  @extend %contenedor;
+}
+
+.title {
+  @extend %title;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 3em;
+  }
+  
+  .title-span {
+    @extend %title-span;
+  }
+}
+
+p {
+  padding: 15px 20px;
+  text-align: center;
+  line-height: 2em;
+}
+
+h2 {
+  @extend %subtitle;
+}

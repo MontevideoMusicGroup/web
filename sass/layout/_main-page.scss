@@ -1,0 +1,159 @@
+.main-image {
+  background: url(https://neyraservicios.com.ar/main.jpg);
+  min-height: 100vh;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right;
+  margin-top: 2em;
+  padding: 5em 0 0 10em;
+
+  @media only screen and (max-width: 768px) {
+    overflow: hidden;
+    margin: 3em 0 -10em 0;
+    padding: 0;
+  }
+  
+  .main-image__descripcion {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    width: 35%;
+
+    @media only screen and (max-width: 768px) {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  .main-image__descripcion__desc {
+    @media only screen and (max-width: 768px) {
+      font-size: 1.2em;
+      margin: 0 .5em;
+    }
+  }
+  
+  .main-image__descripcion__rubros:before {
+    font-weight: 600;
+    font-size: 2em;
+    color: $primary-color;
+    content: 'HARDWARE Y SOPORTE';
+    animation: rubro infinite 5s;
+
+    @media only screen and (max-width: 768px) {
+      width: 100%;
+      font-size: 1em;
+    }
+  }
+  
+  .main-image__boton {
+    margin-top: 2em;
+    @media only screen and (max-width: 768px) {
+      display: flex;
+    }
+  }
+  
+  a {
+    @include button(1.5em);
+
+    @media only screen and (max-width: 768px) {
+      margin: auto;
+    }
+    
+    &:hover {
+      background-color: $primary-color;
+      color: $white-color;
+    }
+  }
+  
+  @keyframes rubro {
+    0% {content: 'HARDWARE Y SOPORTE';}
+    20% {content: 'SANITARIOS';}
+    40% {content: 'ELECTRICIDAD';}
+    60% {content: 'PINTURAS';}
+    80% {content: 'Y MÁS...';}
+  }
+}
+
+.promo {
+  color: $white-color;
+  box-shadow: $box-shadow;
+
+  .up {
+    height: 40vh;
+    background-color: $primary-color;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+    h3 {
+      text-align: center;
+
+      &.uno {
+        font-size: 3em;
+        @media only screen and (max-width: 768px) {
+          font-size: 2em;
+        }
+      }
+
+      &.dos {
+        @media only screen and (max-width: 768px) {
+          font-size: 1em;
+        }
+      }
+    }
+
+    a {
+      &.boton {
+        font-weight: 600;
+        color: $black-color;
+        border: 1px solid $black-color;
+        border-radius: 5px;
+        background-color: #FFFF00;
+        font-size: 1.5em;
+        padding: .5em .7em;
+        &:hover {
+          background-color: $white-color;
+          color: $primary-color-darker;
+          border: 1px solid $primary-color-darker;
+        }
+        @media only screen and (max-width: 768px) {
+          font-size: 1em;
+        }
+      }
+    }
+  }
+
+  .down {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: $primary-color-darker;
+    padding: 1em;
+
+    @media only screen and (max-width: 1000px) {
+      flex-direction: column;
+    }
+    h3 {
+      margin: 0;
+      font-size: 1.5em;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+    }
+    img {
+      height: 2.5em;
+
+      @media only screen and (max-width: 1000px) {
+        display: none;
+      }
+      &.marca {
+        height: 3.5em;
+        margin-bottom: 1em;
+      }
+      &.igual {
+        height: 1.5em;
+      }
+    }
+  }
+}
