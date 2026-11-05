@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#242124">
+  <title>Administración | Neyra Servicios</title>
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body class="admin-page">
+  <main class="auth-screen" id="authScreen">
+    <a class="admin-wordmark" href="/index.html">NEYRA <span>SERVICIOS</span></a>
+    <section class="auth-panel" aria-labelledby="authTitle">
+      <p class="admin-eyebrow">PANEL PRIVADO</p>
+      <h1 id="authTitle">Administración</h1>
+      <p class="auth-copy" id="authCopy">Iniciá sesión para gestionar productos y contenido del sitio.</p>
+
+      <form id="setupForm" class="auth-form" hidden>
+        <label for="setupToken">Clave de instalación</label>
+        <input id="setupToken" name="setupToken" type="password" autocomplete="off" required>
+        <p class="field-help">Usá el valor de SETUP_TOKEN configurado en los secretos del Worker.</p>
+        <label for="setupPassword">Crear contraseña</label>
+        <input id="setupPassword" name="password" type="password" minlength="12" autocomplete="new-password" required>
+        <button class="text-button" type="button" data-password-toggle="setupPassword" aria-controls="setupPassword" aria-pressed="false">Mostrar contraseña</button>
+        <p class="field-help">Mínimo 12 caracteres. Se configura una sola vez en este servidor.</p>
+        <button class="admin-primary" type="submit">Crear acceso</button>
+      </form>
+
+      <form id="loginForm" class="auth-form" hidden>
+        <label for="loginPassword">Contraseña</label>
+        <input id="loginPassword" name="password" type="password" autocomplete="current-password" required>
+        <button class="text-button" type="button" data-password-toggle="loginPassword" aria-controls="loginPassword" aria-pressed="false">Mostrar contraseña</button>
+        <button class="admin-primary" type="submit">Ingresar</button>
+      </form>
+      <p class="admin-message" id="authMessage" role="status" aria-live="polite"></p>
+      <a class="back-link" href="/tienda/">Volver a la tienda</a>
+    </section>
+  </main>
+
+  <div class="admin-app" id="adminApp" hidden>
+    <header class="admin-header">
+      <a class="admin-wordmark" href="/index.html">NEYRA <span>SERVICIOS</span></a>
+      <div class="admin-header-actions">
+        <a class="quiet-link" href="/tienda/" target="_blank" rel="noopener">Ver tienda</a>
+        <button class="admin-secondary" id="logoutButton" type="button">Cerrar sesión</button>
+      </div>
+    </header>
+
+    <main class="admin-main">
+      <div class="admin-page-heading">
+        <div><p class="admin-eyebrow">GESTIÓN DEL SITIO</p><h1>Administración</h1></div>
+        <span class="secure-label">Sesión protegida</span>
+      </div>
+
+      <div class="admin-tabs" role="tablist" aria-label="Secciones de administración">
+        <button class="admin-tab is-current" id="productsTab" type="button" role="tab" aria-selected="true" aria-controls="productsPanel" data-tab="products">Productos</button>
+        <button class="admin-tab" id="financialTab" type="button" role="tab" aria-selected="false" aria-controls="financialPanel" data-tab="financial">Ventas y gastos</button>
+        <button class="admin-tab" id="categoriesTab" type="button" role="tab" aria-selected="false" aria-controls="categoriesPanel" data-tab="categories">Categorías</button>
+        <button class="admin-tab" id="contentTab" type="button" role="tab" aria-selected="false" aria-controls="contentPanel" data-tab="content">Textos de portada</button>
+      </div>
+
+      <section class="admin-panel" id="financialPanel" role="tabpanel" aria-labelledby="financialTab" hidden>
+        <div class="panel-heading"><div><h2>Ventas y resultados</h2><p>Registrá las ventas confirmadas y los gastos del negocio.</p></div></div>
+        <div class="financial-summary" aria-live="polite">
+          <article><span>Facturación</span><strong id="summaryRevenue">$ 0</strong></article>
+          <article><span>Costo de mercadería</span><strong id="summaryCost">$ 0</strong></article>
+          <article><span>Ganancia bruta</span><strong id="summaryGross">$ 0</strong></article>
+          <article><span>Gastos</span><strong id="summaryExpenses">$ 0</strong></article>
+          <article><span>Ganancia neta estimada</span><strong id="summaryNet">$ 0</strong></article>
+        </div>
+        <div class="financial-warning" id="costWarning" hidden></div>
+        <div class="movement-forms">
+          <form class="movement-form" id="saleForm">
+            <h3>Registrar venta confirmada</h3>
+            <p>Podés registrar una venta aunque el producto se compre al proveedor cuando lo encargan.</p>
+            <label>Producto<select id="saleProduct" required></select></label>
+            <div class="form-grid">
+              <label>Unidades vendidas<input name="quantity" type="number" min="1" step="1" required></label>
+              <label>Precio unitario final<input name="unitPrice" type="number" min="0" step="0.01" placeholder="Usar precio vigente"></label>
+              <label>Fecha de venta<input name="confirmedAt" type="date"></label>
+              <label>Canal<input name="channel" maxlength="60" placeholder="WhatsApp, local, tienda…"></label>
+              <label class="span-2">Nota<textarea name="note" rows="2" maxlength="300"></textarea></label>
+            </div>
+            <button class="admin-primary" type="submit">Confirmar venta</button>
+            <p class="admin-message" id="saleMessage" role="status" aria-live="polite"></p>
+          </form>
+
+          <form class="movement-form" id="expenseForm">
+            <h3>Registrar otro gasto</h3>
+            <p>Para estimar el resultado neto del período.</p>
+            <div class="form-grid">
+              <label class="span-2">Concepto<input name="description" maxlength="160" required></label>
+              <label>Importe<input name="amount" type="number" min="0.01" step="0.01" required></label>
+              <label>Categoría<input name="category" maxlength="60" placeholder="Flete, servicios…"></label>
+              <label class="span-2">Fecha<input name="date" type="date"></label>
+            </div>
+            <button class="admin-primary" type="submit">Guardar gasto</button>
+            <p class="admin-message" id="expenseMessage" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <section class="movement-form order-form" id="orderFormSection">
+          <h3>Pedidos rápidos</h3>
+          <p>Actualizá el pedido cuando quede listo para entregar o cuando ya se haya entregado.</p>
+          <form id="orderForm">
+            <div class="form-grid">
+              <label>Nombre<input name="customerName" maxlength="100" required></label>
+              <label>WhatsApp<input name="phoneE164" maxlength="20" placeholder="+5493512345678" required></label>
+              <label>Producto<select id="orderProduct" required></select></label>
+              <label>Cantidad<input name="quantity" type="number" min="1" step="1" required></label>
+              <label>Estado<select name="status">
+                <option value="ordered">pedido de {cantidad} {producto} encargado</option>
+                <option value="ready">pedido de {cantidad} {producto} listo para entregar</option>
+                <option value="delivered">pedido de {cantidad} {producto} entregado</option>
+              </select></label>
+              <label>Nota<textarea name="note" rows="2" maxlength="300" placeholder="Opcional"></textarea></label>
+            </div>
+            <button class="admin-primary" type="submit">Guardar pedido</button>
+            <p class="admin-message" id="orderMessage" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="movement-history">
+          <div class="panel-heading"><div><h3>Movimientos</h3><p>Ventas y gastos registrados. Podés eliminar un movimiento individual.</p></div></div>
+          <div class="movement-list" id="movementHistory"></div>
+        </section>
+
+        <section class="movement-history">
+          <div class="panel-heading"><div><h3>Pedidos</h3><p>Estado, cliente y WhatsApp directo.</p></div></div>
+          <div class="movement-list" id="orderList"></div>
+        </section>
+      </section>
+
+      <section class="admin-panel" id="productsPanel" role="tabpanel" aria-labelledby="productsTab">
+        <div class="panel-heading">
+          <div><h2>Catálogo</h2><p>Los cambios se guardan y aparecen en la tienda.</p></div>
+          <span class="product-count" id="productCount">0 productos</span>
+        </div>
+        <div class="product-manager">
+          <form class="product-form" id="productForm">
+            <input id="productId" name="id" type="hidden">
+            <div class="form-heading"><h3 id="productFormTitle">Agregar producto</h3><button class="text-button" id="resetProduct" type="button">Limpiar</button></div>
+            <div class="form-grid">
+              <label class="span-2">Nombre del producto *<input id="productName" name="name" maxlength="140" required></label>
+              <label>SKU / código<input id="productSku" name="sku" maxlength="60"></label>
+              <label class="category-field-wrap">Categoría *<input id="productCategory" name="category" maxlength="60" required autocomplete="off"><ul class="cat-suggest" id="categorySuggest" hidden></ul><button class="text-button category-quick-add" id="categoryQuickAdd" type="button" hidden>＋ Crear categoría</button></label>
+              <label>Precio en pesos *<input id="productPrice" name="price" type="number" min="0" step="0.01" required></label>
+              <label>Costo unitario<input id="productUnitCost" name="unitCost" type="number" min="0" step="0.01" required></label>
+              <label>Subcategoría<input id="productSubcategory" name="subcategory" maxlength="60" list="subcategoryOptions"><datalist id="subcategoryOptions"><option value="Epson"><option value="HP"><option value="Canon"><option value="Brother"></datalist></label>
+              <label>Marca<input id="productBrand" name="brand" maxlength="60"></label>
+              <label>Modelo<input id="productModel" name="model" maxlength="80"></label>
+              <label>Color / variante<input id="productColorName" name="color" maxlength="60"></label>
+              <label>Capacidad / presentación<input id="productCapacity" name="capacity" maxlength="60"></label>
+              <label class="span-2">Compatibilidad<input id="productCompatibility" name="compatibility" maxlength="300"></label>
+              <label class="span-2">Descripción<textarea id="productDescription" name="description" rows="4" maxlength="1600"></textarea></label>
+              <label>Precio de oferta<input id="productSalePrice" name="salePrice" type="number" min="0" step="0.01" placeholder="Sin oferta"></label>
+              <label>Inicio de oferta<input id="productSaleStartsAt" name="saleStartsAt" type="datetime-local"></label>
+              <label>Fin de oferta<input id="productSaleEndsAt" name="saleEndsAt" type="datetime-local"></label>
+              <label>Color del producto<input id="productColor" name="inkColor" type="color" value="#2563eb"></label>
+              <label class="upload-field">Foto del producto<input id="productImage" name="image" type="file" accept="image/*"><span id="imageFileName">Cualquier formato de imagen · hasta 4 MB</span></label>
+              <label class="check-field"><input id="productActive" name="active" type="checkbox" checked> Publicado en la tienda</label>
+              <label class="check-field"><input id="productSample" name="isSample" type="checkbox"> Marcar como producto de muestra</label>
+            </div>
+            <div class="product-preview" id="productPreview" hidden><img id="previewImage" alt="Vista previa de la foto seleccionada"></div>
+            <button class="admin-primary" type="submit" id="saveProduct">Guardar producto</button>
+            <p class="admin-message" id="productMessage" role="status" aria-live="polite"></p>
+          </form>
+          <div class="product-list-wrap">
+            <div class="list-heading"><h3>Productos cargados</h3><label class="list-search"><span class="visually-hidden">Filtrar productos</span><input id="listSearch" type="search" placeholder="Filtrar productos"></label></div>
+            <div class="product-list" id="productList" aria-live="polite"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="admin-panel" id="categoriesPanel" role="tabpanel" aria-labelledby="categoriesTab" hidden>
+        <div class="panel-heading"><div><h2>Categorías</h2><p>Creá, reordená y actualizá las secciones del catálogo.</p></div></div>
+        <div class="movement-forms">
+          <form class="movement-form" id="categoryForm">
+            <div class="form-heading"><h3 id="categoryFormTitle">Agregar categoría</h3><button class="text-button" id="resetCategory" type="button">Limpiar</button></div>
+            <input id="categoryId" type="hidden">
+            <div class="form-grid">
+              <label>Nombre<input id="categoryName" maxlength="60" required></label>
+              <label>Padre<select id="categoryParent"><option value="">Principal</option></select></label>
+              <label>Orden<input id="categoryOrder" type="number" min="1" step="10" value="10"></label>
+            </div>
+            <button class="admin-primary" id="categorySubmit" type="submit">Guardar categoría</button>
+            <p class="admin-message" id="categoryMessage" role="status" aria-live="polite"></p>
+          </form>
+          <form class="movement-form" id="orderTemplateForm">
+            <h3>Plantilla de WhatsApp</h3>
+            <p>Usá {nombre}, {cantidad}, {unidades} (unidad/unidades) y {producto}. Cada pedido genera un solo mensaje con su cantidad total.</p>
+            <div class="form-grid">
+              <label class="span-2">Mensaje<textarea id="whatsappTemplate" rows="3" maxlength="600" required></textarea></label>
+            </div>
+            <button class="admin-primary" type="submit">Guardar plantilla</button>
+            <p class="admin-message" id="orderTemplateMessage" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <section class="movement-history">
+          <div class="panel-heading"><div><h3>Árbol de categorías</h3></div></div>
+          <div class="movement-list" id="categoryList"></div>
+        </section>
+      </section>
+
+      <section class="admin-panel" id="contentPanel" role="tabpanel" aria-labelledby="contentTab" hidden>
+        <div class="panel-heading"><div><h2>Textos de portada</h2><p>Editá estos campos sin tocar la estructura o el código HTML.</p></div></div>
+        <form class="content-form" id="siteContentForm">
+          <label>Frase superior<input id="contentBadge" maxlength="120" required></label>
+          <label>Palabra destacada del título<input id="contentAccent" maxlength="45" required></label>
+          <label>Descripción<textarea id="contentDescription" rows="4" maxlength="400" required></textarea></label>
+          <button class="admin-primary" type="submit">Guardar textos</button>
+          <p class="admin-message" id="contentMessage" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script src="/admin/admin.js" defer></script>
+</body>
+</html>

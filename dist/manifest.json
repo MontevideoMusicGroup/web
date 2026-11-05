@@ -1,0 +1,36 @@
+{
+  "name": "Neyra Servicios",
+  "short_name": "Neyra",
+  "description": "Soluciones tecnológicas, soporte informático y servicios IT en Córdoba, Argentina.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#e22e40",
+  "background_color": "#242124",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "https://neyraservicios.com.ar/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Contactar por WhatsApp",
+      "url": "https://wa.me/5493512600101",
+      "description": "Contactar a Neyra Servicios"
+    },
+    {
+      "name": "Ver Ubicación",
+      "url": "/ubicacion.html",
+      "description": "Cómo llegar a Neyra Servicios"
+    },
+    {
+      "name": "Tienda",
+      "url": "/tienda/",
+      "description": "Ver productos Neyra"
+    }
+  ]
+}

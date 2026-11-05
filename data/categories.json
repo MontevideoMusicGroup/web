@@ -1,0 +1,14 @@
+[
+  {"id":"tintas","name":"Tintas","parentId":"","active":true,"sortOrder":10},
+  {"id":"tintas-epson","name":"Epson","parentId":"tintas","active":true,"sortOrder":10},
+  {"id":"tintas-hp","name":"HP","parentId":"tintas","active":true,"sortOrder":20},
+  {"id":"tintas-canon","name":"Canon","parentId":"tintas","active":true,"sortOrder":30},
+  {"id":"tintas-brother","name":"Brother","parentId":"tintas","active":true,"sortOrder":40},
+  {"id":"cartuchos","name":"Cartuchos","parentId":"","active":true,"sortOrder":20},
+  {"id":"impresoras","name":"Impresoras","parentId":"","active":true,"sortOrder":30},
+  {"id":"toners","name":"Toners","parentId":"","active":true,"sortOrder":40},
+  {"id":"insumos","name":"Insumos de impresión","parentId":"","active":true,"sortOrder":50},
+  {"id":"accesorios","name":"Accesorios","parentId":"","active":true,"sortOrder":60},
+  {"id":"repuestos","name":"Repuestos","parentId":"","active":true,"sortOrder":70},
+  {"id":"otros","name":"Otros productos","parentId":"","active":true,"sortOrder":80}
+]

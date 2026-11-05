@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e22e40">
+  <meta name="description" content="Ficha técnica y disponibilidad del producto en Neyra Servicios.">
+  <title>Producto | Neyra Servicios</title>
+  <link rel="icon" href="https://neyraservicios.com.ar/favicon-32x32.png" type="image/png">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/tienda/store.css">
+  <link rel="stylesheet" href="/tienda/product.css">
+</head>
+<body class="store-page product-page">
+  <a class="skip-link" href="#productDetails">Saltar a la información del producto</a>
+  <header class="store-header">
+    <a class="store-brand" href="/index.html" aria-label="Neyra Servicios, inicio">
+      <img src="/media/logo-web.png" alt="Neyra Servicios">
+    </a>
+    <nav class="store-nav" aria-label="Navegación de tienda">
+      <a href="/index.html">Inicio</a>
+      <a href="/tienda/">Tienda</a>
+      <details class="store-category-menu">
+        <summary>Categorías</summary>
+        <div class="category-menu-items" id="detailCategoryMenu"></div>
+      </details>
+      <a href="/tienda/?sort=popular#catalog">Más vendidos</a>
+      <a href="/tienda/?sort=newest#catalog">Novedades</a>
+      <a href="/contacto.html">Ayuda</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Cambiar a modo oscuro" aria-pressed="false"><span aria-hidden="true">🌙</span></button>
+    <a class="cart-trigger" href="/tienda/?openCart=1" aria-label="Abrir carrito"><span aria-hidden="true">🛒</span><span>Carrito</span></a>
+  </header>
+
+  <main class="store-main product-detail-main" id="productDetails">
+    <nav class="detail-breadcrumb" aria-label="Ruta de navegación"><a href="/tienda/">Tienda</a><span>›</span><span id="productCategory">Producto</span></nav>
+    <p class="store-status" id="detailStatus" role="status" aria-live="polite">Cargando producto…</p>
+    <article id="detailLayout" class="product-detail-layout" hidden>
+      <div class="detail-art" id="detailArt"></div>
+      <section class="detail-copy" aria-labelledby="productTitle">
+        <p class="product-sku" id="productBrandLine"></p>
+        <h1 id="productTitle"></h1>
+        <div class="detail-labels" id="detailLabels"></div>
+        <div class="detail-price-row"><del id="originalPrice" hidden></del><strong id="productPrice"></strong></div>
+        <p class="detail-availability" id="productAvailability"></p>
+        <div class="detail-offer-clock" id="detailOfferClock" hidden></div>
+        <p class="detail-description" id="productDescription"></p>
+        <label class="variant-field" id="variantField" hidden>Color / variante<select id="variantSelect"></select></label>
+        <div class="purchase-controls">
+          <div class="detail-quantity">
+            <span>Cantidad</span>
+            <div class="quantity-control"><button id="detailQuantityMinus" type="button" aria-label="Quitar una unidad">−</button><output id="detailQuantity">1</output><button id="detailQuantityPlus" type="button" aria-label="Agregar una unidad">+</button></div>
+          </div>
+          <button class="add-product detail-add" id="detailAdd" type="button"><span aria-hidden="true">＋</span> Agregar al carrito</button>
+        </div>
+        <p class="detail-confirmation" id="detailConfirmation" role="status" aria-live="polite"></p>
+        <section class="delivery-info" aria-label="Entrega y retiro">
+          <div class="delivery-headline">
+            <span class="delivery-badge">Entrega estimada</span>
+            <strong id="deliveryEstimate">Calculando horario…</strong>
+          </div>
+          <p id="deliverySummary">Retiro en La Rioja 361, Córdoba. Envíos, costos y plazos: consultanos para confirmar cobertura y disponibilidad.</p>
+          <div class="delivery-options" aria-label="Formas de entrega">
+            <span>Envío a domicilio</span>
+            <span>Retiro en local</span>
+            <span>Confirmación por WhatsApp</span>
+          </div>
+        </section>
+        <a class="detail-help" href="/contacto.html">¿Necesitás ayuda con la compatibilidad?</a>
+      </section>
+    </article>
+
+    <section class="spec-section" id="specSection" hidden aria-labelledby="specTitle">
+      <h2 id="specTitle">Características principales</h2>
+      <dl class="spec-grid" id="specGrid"></dl>
+      <details class="full-description"><summary>Descripción completa</summary><p id="fullDescription"></p></details>
+    </section>
+
+    <section class="related-section" id="relatedSection" hidden aria-labelledby="relatedTitle">
+      <h2 id="relatedTitle">Productos relacionados</h2>
+      <div class="related-grid" id="relatedGrid"></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="/media/logo-web.png" alt="Neyra Servicios">
+          <p>Más de 40 años acercando soluciones tecnológicas a empresas y personas.</p>
+        </div>
+        <div>
+          <p class="fcol-title">Contacto</p>
+          <ul class="fcontact">
+            <li class="fcontact-item">
+              <span class="fi" aria-hidden="true">📧</span>
+              <a href="mailto:ventas@neyraservicios.com.ar">ventas@neyraservicios.com.ar</a>
+            </li>
+            <li class="fcontact-item">
+              <span class="fi" aria-hidden="true">📱</span>
+              <a href="https://wa.me/5493512600101" target="_blank" rel="noopener noreferrer"
+                 aria-label="Llamar o escribir por WhatsApp (abre en nueva ventana)"
+                 data-wa="footer">(0351) 15 260-0101</a>
+            </li>
+            <li class="fcontact-item">
+              <span class="fi" aria-hidden="true">📍</span>
+              <span>La Rioja 361, Córdoba, Argentina</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <p class="fcol-title">Navegación</p>
+          <nav aria-label="Pie de página">
+            <ul class="fnav" role="list">
+              <li><a href="/index.html">Inicio</a></li>
+              <li><a href="/nosotros.html">Nosotros</a></li>
+              <li><a href="/marcas.html">Servicios</a></li>
+              <li><a href="/tienda/">Tienda</a></li>
+              <li><a href="/ubicacion.html">Cómo llegar</a></li>
+              <li><a href="/contacto.html">Contacto</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div class="footer__div"></div>
+      <div class="footer__bot">
+        <span>© 2026 Neyra Servicios. Todos los derechos reservados.</span>
+      </div>
+    </div>
+  </footer>
+  <script src="/tienda/product.js" defer></script>
+</body>
+</html>
