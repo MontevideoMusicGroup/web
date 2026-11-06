@@ -32,7 +32,9 @@ const payload = { name:'Tinta', category:'Tintas', price:100, unitCost:40, activ
 test('setup fails closed, password hashing, hashed sessions, origin and CSRF checks',async () => {
   const env = environment();
   const missingTokenEnv = environment(); delete missingTokenEnv.SETUP_TOKEN;
-  assert.equal((await call(missingTokenEnv,'/api/admin/setup','POST',{ password:'a strong test password' },{ 'X-Setup-Token':'anything' })).status,403);
+  const noTokenSession = await (await call(missingTokenEnv,'/api/admin/session')).json();
+  assert.equal(noTokenSession.setupTokenRequired,false);
+  assert.equal((await call(missingTokenEnv,'/api/admin/setup','POST',{ password:'a strong test password' })).status,201);
   assert.equal((await call(env,'/api/admin/setup','POST',{ password:'a strong test password' })).status,403);
   const h = await auth(env);
   const admin = JSON.parse(env.sqlite.prepare("SELECT value FROM settings WHERE key='admin'").get().value);

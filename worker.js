@@ -170,13 +170,13 @@ async function api(request, env, path) {
   if (method === 'GET' && path === '/api/site-content') return json(await setting(env,'site-content',CONTENT));
   if (path === '/api/admin/session' && method === 'GET') {
     const s = await session(request,env);
-    return json(s ? { authenticated:true, csrfToken:s.csrf } : { authenticated:false, setupRequired: !await setting(env,'admin') });
+    return json(s ? { authenticated:true, csrfToken:s.csrf } : { authenticated:false, setupRequired: !await setting(env,'admin'), setupTokenRequired: Boolean(env.SETUP_TOKEN) });
   }
   if (['/api/admin/setup','/api/admin/login'].includes(path) && method === 'POST') {
     sameOrigin(request);
     await rateLimit(request,env,path);
     const setup = path.endsWith('/setup');
-    if (setup && (!env.SETUP_TOKEN || !equal(request.headers.get('X-Setup-Token') || '', env.SETUP_TOKEN))) fail(403,'Token de configuración inválido.');
+    if (setup && env.SETUP_TOKEN && !equal(request.headers.get('X-Setup-Token') || '', env.SETUP_TOKEN)) fail(403,'Token de configuración inválido.');
     const admin = await setting(env,'admin');
     if (setup && admin) fail(409,'El administrador ya fue configurado.');
     if (!setup && !admin) return json({ setupRequired:true, error:'Configurá la contraseña de administración.' },409);
