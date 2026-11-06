@@ -3,6 +3,8 @@
 const authScreen = document.getElementById('authScreen');
 const adminApp = document.getElementById('adminApp');
 const setupForm = document.getElementById('setupForm');
+const setupTokenGroup = document.getElementById('setupTokenGroup');
+const setupTokenInput = document.getElementById('setupToken');
 const loginForm = document.getElementById('loginForm');
 const authMessage = document.getElementById('authMessage');
 const authCopy = document.getElementById('authCopy');
@@ -73,6 +75,8 @@ async function inspectSession() {
     }
     setupForm.hidden = !session.setupRequired;
     loginForm.hidden = session.setupRequired;
+    setupTokenGroup.hidden = !session.setupTokenRequired;
+    setupTokenInput.required = Boolean(session.setupTokenRequired);
     authCopy.textContent = session.setupRequired
       ? 'Creá una contraseña para habilitar el acceso privado a este panel.'
       : 'Iniciá sesión para gestionar productos y contenido del sitio.';
@@ -88,7 +92,7 @@ async function submitAuth(form, endpoint) {
   try {
     const result = await request(endpoint, {
       method: 'POST',
-      headers: endpoint.endsWith('/setup') ? { 'X-Setup-Token': new FormData(form).get('setupToken') } : {},
+      headers: endpoint.endsWith('/setup') && !setupTokenGroup.hidden ? { 'X-Setup-Token': new FormData(form).get('setupToken') } : {},
       body: JSON.stringify({ password: new FormData(form).get('password') })
     });
     csrfToken = result.csrfToken;

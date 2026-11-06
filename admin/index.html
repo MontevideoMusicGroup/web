@@ -16,9 +16,11 @@
       <p class="auth-copy" id="authCopy">Iniciá sesión para gestionar productos y contenido del sitio.</p>
 
       <form id="setupForm" class="auth-form" hidden>
-        <label for="setupToken">Clave de instalación</label>
-        <input id="setupToken" name="setupToken" type="password" autocomplete="off" required>
-        <p class="field-help">Usá el valor de SETUP_TOKEN configurado en los secretos del Worker.</p>
+        <div id="setupTokenGroup" hidden>
+          <label for="setupToken">Clave de instalación</label>
+          <input id="setupToken" name="setupToken" type="password" autocomplete="off">
+          <p class="field-help">Usá el valor de SETUP_TOKEN configurado en los secretos del Worker.</p>
+        </div>
         <label for="setupPassword">Crear contraseña</label>
         <input id="setupPassword" name="password" type="password" minlength="12" autocomplete="new-password" required>
         <button class="text-button" type="button" data-password-toggle="setupPassword" aria-controls="setupPassword" aria-pressed="false">Mostrar contraseña</button>
