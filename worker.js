@@ -124,6 +124,7 @@ function publicProduct(p, sales) {
   return { ...safe, effectivePrice: effective, saleActive: effective < p.price, salesCount: sales.filter(s => s.productId === p.id).reduce((n, s) => n + s.quantity, 0) };
 }
 async function image(data, env) {
+  if (!env.IMAGES) fail(503, 'La subida de imágenes no está habilitada en esta instalación.');
   if (typeof data !== 'string') fail(400, 'La imagen no es válida.');
   const match = /^data:image\/(png|jpeg|webp);base64,([A-Za-z0-9+/]+={0,2})$/.exec(data);
   if (!match) fail(400, 'La imagen debe ser PNG, JPG o WebP.');
@@ -306,7 +307,7 @@ async function assets(request, env, path) {
   if (path === '/manifest.json') return env.ASSETS.fetch(request);
   if (/[%\\\u0000-\u001f]/.test(path) || path.split('/').some(s => s.startsWith('.') || /^(?:data|node_modules|backup.*|source|src|tests?)$/i.test(s)) || /\.(?:ps1|jsonl?|toml|sql|md|map|tmp|env|log)$/i.test(path) || /\/(?:worker(?:\.test)?|server|package(?:-lock)?)\.[^/]+$/i.test(path)) return new Response(null,{ status:404 });
   if (/^\/media\/store\/[\w-]+\.(?:png|jpe?g|webp)$/i.test(path)) {
-    const object = await env.IMAGES.get(path.slice(1));
+    const object = await env.IMAGES?.get(path.slice(1));
     if (object) return new Response(request.method === 'HEAD' ? null : object.body,{ headers:{ 'Content-Type':object.httpMetadata?.contentType || 'application/octet-stream', 'ETag':object.httpEtag, 'Cache-Control':'public, max-age=31536000, immutable', 'X-Content-Type-Options':'nosniff' } });
   }
   const aliases = { '/':'/index.html', '/tienda':'/tienda/index.html', '/tienda/':'/tienda/index.html', '/admin':'/admin/index.html', '/admin/':'/admin/index.html', '/store':'/tienda/index.html', '/store/':'/tienda/index.html' };

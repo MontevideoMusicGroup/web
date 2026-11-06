@@ -71,6 +71,10 @@ test('products preserve pricing, never expose unit cost, validate images and fie
   assert.equal(r.status,200);
   const updated = await r.json(); assert.match(updated.image,/^media\/store\/[a-f0-9]{32}\.png$/);
   const image = await call(env,`/${updated.image}`); assert.equal(image.headers.get('content-type'),'image/png');
+  const noImages = environment(); delete noImages.IMAGES;
+  const noImagesAuth = await auth(noImages);
+  assert.equal((await call(noImages,'/api/admin/products','POST',{ ...payload, imageData:'data:image/png;base64,iVBORw0KGgo=' },noImagesAuth)).status,503);
+  assert.equal((await call(noImages,'/media/store/existente.png')).status,200);
   assert.equal((await call(env,`/api/admin/products/${p.id}`,'DELETE',undefined,h)).status,204);
   assert.deepEqual(await (await call(env,'/api/products')).json(),[]);
 });
